@@ -11,6 +11,12 @@ public class ChatServer {
         serverSocket = new ServerSocket(1234);
     }
 
+    void sendAll(String message) {
+        for (Client client : clients) {
+            client.receive(message);
+        }
+    }
+
     public void run() {
         while(true) {
             System.out.println("Waiting...");
@@ -19,7 +25,7 @@ public class ChatServer {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client connected!");
                 // создаем клиента на своей стороне
-                clients.add(new Client(socket));
+                clients.add(new Client(socket, this));
 
             } catch (IOException e) {
                 e.printStackTrace();
