@@ -11,6 +11,7 @@ class Client implements Runnable {
     Scanner in;
     PrintStream out;
     ChatServer server;
+    String name;
 
     public Client(Socket socket, ChatServer server){
 
@@ -36,11 +37,12 @@ class Client implements Runnable {
 
             // читаем из сети и пишем в сеть
             out.println("Welcome to chat!");
+            out.println("How we can name you?");
+            name = in.nextLine();
+
             String input = in.nextLine();
             while (!input.equals("bye")) {
-                //out.println(input + "-" + input + "-" +
-                //        input.substring(input.length() / 2) + "...");
-                server.sendAll(input);
+                server.sendAll(name + ": " + input);
                 input = in.nextLine();
             }
             socket.close();
