@@ -11,6 +11,8 @@ class Client implements Runnable {
     public Client(Socket socket){
 
         this.socket = socket;
+        // запускаем клиент
+        new Thread(this).start();
     }
 
     public void run() {
